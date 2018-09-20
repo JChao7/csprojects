@@ -18,7 +18,7 @@ public class distance {
 	int y2 = scan.nextInt();
     
     //calulating distance
-    double distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) * 1.0);
+    double distance = Math.pow((Math.pow(x2 - x1, 2) + (Math.pow(y2 - y1, 2))), 0.5);
     System.out.println("The distance is: " + distance);
     }
 }
