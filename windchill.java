@@ -1,3 +1,5 @@
+/* Program to calculate the wind speed index implemented on the National Weather Service in 2001 */
+
 //import Scanner
 import java.util.Scanner;
 
