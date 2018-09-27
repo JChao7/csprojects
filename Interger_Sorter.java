@@ -20,7 +20,7 @@ public class Lab04_1 {
 	    int num3 = scan.nextInt();
         
         //first decision tree 
-        if (num1 <= num2) && (num1 <= num3) {
+        if ((num1 <= num2) && (num1 <= num3)) {
             System.out.println(num1);
             if (num2 <= num3) {
                 System.out.println(num2);
@@ -31,23 +31,25 @@ public class Lab04_1 {
                 System.out.println(num2);
             }
         //2nd tree
-        else {
-            if (num2 <= num1) && (num2 <= num3) {
+        
+            if ((num2 <= num1) && (num2 <= num3)) {
                 System.out.println(num2);
-                if num3 <= num1 {
+                if (num3 <= num1) {
                     System.out.println(num3);
                     System.out.println(num1);
                 }
                 else {
                     System.out.println(num1);
                     System.out.println(num3);
+                    }
                 }
             }
             //3rd tree
+            //changed this to if
             else {
-                if (num3 <= num1) && (num3 <= num2) {
+                if ((num3 <= num1) && (num3 <= num2)) {
                     System.out.println(num3);
-                    if num1 <= num2 {
+                    if (num1 <= num2) {
                         System.out.println(num1);
                         System.out.println(num2);
                     }
@@ -57,13 +59,7 @@ public class Lab04_1 {
                     }
                 }
             }
-            else {
-                System.out.println("Congrats on getting an imposible error, please try again.");
-            }
-        }
-        }
-    Scan.close();
+        scan.close();
     }
 }
-
 /*** By Jonathan Chao ***/
