@@ -1,3 +1,5 @@
+/*Input a interger to find out if it's divisible, but with extra features */
+
 import java.util.Scanner;
 
 public class Divisibleby {
@@ -37,3 +39,4 @@ public class Divisibleby {
     scan.close();
     }
 }
+/*** By Jonathan Chao ***/
