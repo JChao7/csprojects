@@ -1,3 +1,5 @@
+//Finds whether or not a number between 2 and 1000 is a prime number
+
 import java.util.Scanner;
 
 public class PrimeNum {
