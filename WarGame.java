@@ -63,6 +63,11 @@ public class WarGame {
 	public static int findWinner(int user, int comp) {
 		int userScore = user % 13;
 		int compScore = comp % 13;
+		if (userScore == 0)
+			userScore += 13;
+		if (compScore == 0)
+			compScore += 13;
+
 		if (userScore > compScore)
 			return 1;
 		if (compScore > userScore)
