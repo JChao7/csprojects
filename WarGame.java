@@ -1,3 +1,12 @@
+
+/*
+WarGame
+Oct 24th, 2018
+This program prompts user to enter a number between 1 and 52 and compares it to the a random number of the computer and see who has a higher number
+Package: Scanner from java.util
+Limitation: interger number between 1 and 52
+*/
+
 import java.util.Scanner;
 
 public class WarGame {
