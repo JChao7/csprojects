@@ -1,20 +1,19 @@
 import java.util.Scanner;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JFileChooser;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-
 import java.io.BufferedReader;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Checkers {
 
+public static String board[][] = new String[8][8];
+	
 	public static void main(String[] args) {
+		initializeBoard();
 		menu();
 	}
 
@@ -30,81 +29,21 @@ public class Checkers {
 			switch (choice) {
 			case 1:
 				System.out.println("Created by: Jonathan Chao");
+				winner();
 				break;
 			case 2:
 				System.out.println("Try and capture all your enemy pieces by jumping over your opponent pieces");
 				System.out.print(
-						"If you reach the far side of the board, you can promote your piece to king and allows it to move in any direction");
+						"If you reach the far side of the board, you can promote your piece to king(Upper case letter) and allows it to move in any direction");
 				break;
 			case 4:
 				pastwinners();
 			}
 		}
 		if (choice == 3) {
-			move();
+			blackTurn();
 		} else
 			System.exit(0);
-	}
-
-	private static void move() {
-		Scanner scan = new Scanner(System.in);
-		char[][] board = initializeBoard();
-		int col;
-
-		do {
-			clear();
-			display(board);
-			String printturn = turn();
-			System.out.println(printturn);
-			System.out.print("Pick a column[1-7] or -1 to quit: ");
-
-			col = scan.nextInt();
-
-			switch (col) {
-			case 1:
-				dropToken('R', col, board);
-				break;
-			case 2:
-				dropToken('R', col, board);
-				break;
-			case 3:
-				dropToken('R', col, board);
-				break;
-			case 4:
-				dropToken('R', col, board);
-				break;
-			case 5:
-				dropToken('R', col, board);
-				break;
-			case 6:
-				dropToken('R', col, board);
-				break;
-			case 7:
-				dropToken('R', col, board);
-				break;
-			case -1:
-				System.exit(0);
-				break;
-			default:
-				System.out.println("Invalid entry");
-				break;
-			}
-
-		} while (col != -1);
-		scan.close();
-	}
-
-	private static String turn() {
-		int turn = true;
-
-		if ((turn == true) {
-			System.out.println("Player 1 turn");
-			turn = false;
-		} else {
-			System.out.println("Player 2 turn");
-			turn = true;
-		}
-		return turn();
 	}
 
 	private static void clear() {
@@ -112,78 +51,91 @@ public class Checkers {
 			System.out.println();
 	}
 
-	private static void dropToken(char token, int column, char[][] board) {
-		int index = 0;
-		column = column - 1;
+	public static void initializeBoard() {
+		board[0][0] = "r"; // first row
+		board[0][2] = "r";
+		board[0][4] = "r";
+		board[0][6] = "r";
+		board[1][1] = "r"; // second row
+		board[1][3] = "r";
+		board[1][5] = "r";
+		board[1][7] = "r";
+		board[2][0] = "r"; // third row
+		board[2][2] = "r";
+		board[2][4] = "r";
+		board[2][6] = "r";
 
-		while ((index < 8) && (board[index][column] != ' '))
-			index++;
-
-		if (index < 8)
-			board[index][column] = token;
+		board[7][1] = "b"; // first row
+		board[7][3] = "b";
+		board[7][5] = "b";
+		board[7][7] = "b";
+		board[6][0] = "b"; // second row
+		board[6][2] = "b";
+		board[6][4] = "b";
+		board[6][6] = "b";
+		board[5][1] = "b"; // third row
+		board[5][3] = "b";
+		board[5][5] = "b";
+		board[5][7] = "b";
 	}
 
-	public static char[][] initializeBoard() {
-
-		char[][] board = new char[8][8];
-		for (int r = 0; r < 8; r++) {
-			for (int c = 0; c < 8; c++) {
-				board[r][c] = ' ';
+	private static void display() {
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				System.out.printf("%3s", board[i][j]);
 			}
-		}
-		// pieces
-
-		// black
-		board[0][0] = 'B'; // first row
-		board[0][2] = 'B';
-		board[0][4] = 'B';
-		board[0][6] = 'B';
-		board[1][1] = 'B'; // second row
-		board[1][3] = 'B';
-		board[1][5] = 'B';
-		board[1][7] = 'B';
-		board[2][0] = 'B'; // third row
-		board[2][2] = 'B';
-		board[2][4] = 'B';
-		board[2][6] = 'B';
-
-		// red
-		board[7][1] = 'R'; // first row
-		board[7][3] = 'R';
-		board[7][5] = 'R';
-		board[7][7] = 'R';
-		board[6][0] = 'R'; // second row
-		board[6][2] = 'R';
-		board[6][4] = 'R';
-		board[6][6] = 'R';
-		board[5][1] = 'R'; // third row
-		board[5][3] = 'R';
-		board[5][5] = 'R';
-		board[5][7] = 'R';
-		return board;
-	}
-
-	private static void display(char[][] board) {
-		// board: 6 rows x 7 columns
-		// [0][0] represents the bottom leftmost
-		// [5][0] represents the top rightmost
-		for (int r = 8 - 1; r >= 0; r--) {
-			for (int c = 0; c < 8; c++) {
-				System.out.printf("|%c", board[r][c]);
-			}
-			System.out.println("|");
-			displayBorderBelow();
 			System.out.println();
-		}
+		} 
+		
 	}
-
-	private static void displayBorderBelow() {
-		for (int c = 0; c < 8; c++) {
-			System.out.print("--");
-		}
-		System.out.print("-");
+	
+	public static void turn() {
+		
 	}
-
+	
+	private static void blackTurn() {
+		display();
+		selectPiece();
+		blackCheckLocation();
+		blackMovement();
+	}
+	
+	private static void redTurn() {
+		
+	}
+	
+	private static void selectPiece() {
+		Scanner scan = new Scanner(System.in);
+		int column = scan.nextInt();
+		int row = scan.nextInt();
+		
+		
+	}
+	
+	private static void redCheckLocation() {
+		
+	}
+	
+	private static void blackCheckLocation() {
+		
+	}
+	
+	private static void redMovement() {
+		
+	}
+	
+	private static void blackMovement() {
+		
+	}
+	
+	private static void kingBlack() {
+		
+	}
+	
+	private static void kingRed() {
+		
+	}
+	
 	private static void pastwinners() {
 		String currentDirectory = System.getProperty("user.dir");
 		JFileChooser jc = new JFileChooser(currentDirectory);
@@ -237,9 +189,6 @@ public class Checkers {
 			// System.out.println("using hh:mm:ss: " + result2);
 
 			String msg = String.format("%10s | %-10s", result);
-			PrintWriter pw = new PrintWriter(f1);
-			pw.println(msg);
-			pw.close();
 
 			FileWriter fw = new FileWriter(f1, true);
 			fw.write(msg + "\n");
