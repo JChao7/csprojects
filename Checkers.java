@@ -1,3 +1,8 @@
+
+/*
+This program menu from 1 to 5 work except for 3
+*/
+
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileReader;
@@ -10,8 +15,8 @@ import java.util.Date;
 
 public class Checkers {
 
-public static String board[][] = new String[8][8];
-	
+	public static String board[][] = new String[8][8];
+
 	public static void main(String[] args) {
 		initializeBoard();
 		menu();
@@ -33,6 +38,8 @@ public static String board[][] = new String[8][8];
 				break;
 			case 2:
 				System.out.println("Try and capture all your enemy pieces by jumping over your opponent pieces");
+				System.out.println(
+						"Each player can only move one piece forward diagonally at a time. \n You must jump and capture your opponents piece if there is available");
 				System.out.print(
 						"If you reach the far side of the board, you can promote your piece to king(Upper case letter) and allows it to move in any direction");
 				break;
@@ -44,11 +51,6 @@ public static String board[][] = new String[8][8];
 			blackTurn();
 		} else
 			System.exit(0);
-	}
-
-	private static void clear() {
-		for (int i = 0; i < 25; i++)
-			System.out.println();
 	}
 
 	public static void initializeBoard() {
@@ -85,57 +87,80 @@ public static String board[][] = new String[8][8];
 				System.out.printf("%3s", board[i][j]);
 			}
 			System.out.println();
-		} 
-		
+		}
+
 	}
-	
+
 	public static void turn() {
-		
+		while (1 == 1) { // this must be changed, but for now, it's in an infinite loop
+			blackTurn();
+			redTurn();
+		}
 	}
-	
+
 	private static void blackTurn() {
 		display();
 		selectPiece();
 		blackCheckLocation();
 		blackMovement();
 	}
-	
+
 	private static void redTurn() {
-		
+		display();
+		selectPiece();
+		redCheckLocation(selectPiece, board);
+		if (redCheckLocation(selectPiece, board) == false)
+			selectPiece();
+		redMovement();
 	}
-	
-	private static void selectPiece() {
+
+	private static int selectPiece() {
 		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter column 1-8: ");
 		int column = scan.nextInt();
+		column = column - 1;
+		System.out.println("Enter row 1-8: ");
 		int row = scan.nextInt();
-		
-		
+		row = row - 1;
+		return selectPiece();
 	}
-	
-	private static void redCheckLocation() {
-		
+
+	private static boolean redCheckLocation(int selectPiece, String[][] board) {
+		int column = selectPiece;
+		int row = selectPiece;
+		if (board[column][row] == " ") {
+			return true;
+		} else
+			return false;
 	}
-	
-	private static void blackCheckLocation() {
-		
+
+	private static boolean blackCheckLocation() {
+		int column = selectPiece;
+		int row = selectPiece;
+		if (board[column][row] == " ")
+			return true;
+		else
+			return false;
 	}
-	
+
 	private static void redMovement() {
-		
+
+		System.out.print("Left(l) or right(r): ");
 	}
-	
+
 	private static void blackMovement() {
-		
+		System.out.print("Left(l) or right(r): ");
 	}
-	
-	private static void kingBlack() {
-		
-	}
-	
-	private static void kingRed() {
-		
-	}
-	
+
+	/*
+	 * private static void kingBlack() {
+	 * 
+	 * }
+	 * 
+	 * private static void kingRed() {
+	 * 
+	 * }
+	 */
 	private static void pastwinners() {
 		String currentDirectory = System.getProperty("user.dir");
 		JFileChooser jc = new JFileChooser(currentDirectory);
@@ -148,8 +173,8 @@ public static String board[][] = new String[8][8];
 
 			FileReader fr = null;
 			try {
-				fr = new FileReader(file); // reads per character
-				BufferedReader br = new BufferedReader(fr); // can read Strings
+				fr = new FileReader(file, true);
+				BufferedReader br = new BufferedReader(fr);
 
 				String data;
 
@@ -184,9 +209,6 @@ public static String board[][] = new String[8][8];
 
 			String result = formatTheDate(objDate, "MMMM d, y");
 			System.out.println("using MMMM d, y format: " + result);
-
-			// String result2 = formatTheDate(objDate, "hh:mm:ss");
-			// System.out.println("using hh:mm:ss: " + result2);
 
 			String msg = String.format("%10s | %-10s", result);
 
