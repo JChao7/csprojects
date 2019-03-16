@@ -33,28 +33,27 @@ public class Checkers {
 			System.out.println("4. Show Winners");
 			System.out.println("5. Exit");
 			choice = scan.nextInt();
-			if ((choice != 3) || (choice != 5)) {
-				switch (choice) {
-				case 1:
-					System.out.println("Created by: Jonathan Chao & Edward Balase");
-					break;
-				case 2:
-					System.out.println("Try and capture all your enemy pieces by jumping over your opponent pieces");
-					System.out.println(
-							"Each player can only move one piece forward diagonally at a time. \n You must jump and capture your opponents piece if there is available");
-					System.out.print(
-							"If you reach the far side of the board, you can promote your piece to king(Upper case letter) and allows it to move in any direction");
-					break;
-				case 4:
-					pastwinners();
-				}
+
+			switch (choice) {
+			case 1:
+				System.out.println("Created by: Jonathan Chao & Edward Balase");
+				break;
+			case 2:
+				System.out.println("Try and capture all your enemy pieces by jumping over your opponent pieces");
+				System.out.println(
+						"Each player can only move one piece forward diagonally at a time. \nYou must jump and capture your opponents piece if there is available");
+				System.out.print(
+						"If you reach the far side of the board, you can promote your piece to king(Upper case letter) and allows it to move in any direction");
+				break;
+			case 3:
+				display();
+				break;
+			case 4:
+				pastwinners();
 			}
 
-		} while (choice != 5 && choice != 3);
-		if (choice == 3)
-			display();
-		else
-			System.exit(0);
+		} while (choice != 5);
+		System.exit(0);
 	}
 
 	public static void initializeBoard() {
@@ -73,9 +72,8 @@ public class Checkers {
 			board[5][col + 1] = "b";
 			board[6][col] = "b";
 			board[7][col + 1] = "b";
-
 		}
-
+		// turn();
 	}
 
 	private static void display() {
@@ -85,31 +83,32 @@ public class Checkers {
 			}
 			System.out.println();
 		}
+		initializeBoard();
 
 	}
 
-	/*
-	 * public static void turn() { while (1 == 1) { // this must be changed, but for
-	 * now, it's in an infinite loop blackTurn(); redTurn(); } }
-	 */
+	public static void turn() {
+		while (true == true) { // this must be changed, but for now, it's in an infinite loop
+			blackTurn();
+			redTurn();
+		}
+	}
 
 	private static void blackTurn() {
 		display();
 		selectPiece();
-		blackCheckLocation();
-		blackMovement();
+		blackDestination();
+		movement();
 	}
 
 	private static void redTurn() {
 		display();
 		selectPiece();
-		redCheckLocation(selectPiece(), board);
-		if (redCheckLocation(selectPiece(), board) == false)
-			selectPiece();
-		redMovement();
+		redDestination(selectPiece(), board);
+		movement();
 	}
 
-	private static int selectPiece() {
+	private static void selectPiece() {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Enter column 1-8: ");
 		int column = scan.nextInt();
@@ -117,34 +116,22 @@ public class Checkers {
 		System.out.println("Enter row 1-8: ");
 		int row = scan.nextInt();
 		row = row - 1;
-		return selectPiece();
 	}
 
-	private static boolean redCheckLocation(int selectPiece, String[][] board) {
-		int column = selectPiece;
-		int row = selectPiece;
-		if (board[column][row] == " ") {
-			return true;
-		} else
-			return false;
-	}
+	private static void movement() {
+		Scanner scan = new Scanner(System.in);
+		System.out.print("Left(l) or right(r): ");
+		String userInput = scan.next();
+		if (userInput.toLowerCase() == "l") {
 
-	private static boolean blackCheckLocation() {
-		int column = selectPiece();
-		int row = selectPiece();
-		if (board[column][row] == " ")
-			return true;
+		}
+
+		if (userInput.toLowerCase() == "r") {
+
+		}
+
 		else
-			return false;
-	}
-
-	private static void redMovement() {
-
-		System.out.print("Left(l) or right(r): ");
-	}
-
-	private static void blackMovement() {
-		System.out.print("Left(l) or right(r): ");
+			System.out.print("Error, please select again");
 	}
 
 	/*
@@ -156,6 +143,7 @@ public class Checkers {
 	 * 
 	 * }
 	 */
+
 	private static void pastwinners() {
 		String currentDirectory = System.getProperty("user.dir");
 		JFileChooser jc = new JFileChooser(currentDirectory);
@@ -190,27 +178,31 @@ public class Checkers {
 
 		}
 	}
-	/*
-	 * private static void winner() { // if player has no more valid moves, the
-	 * OTHER player wins // displays and records the winner String filename1 =
-	 * "pastwinners.txt"; File f1 = new File(filename1);
-	 * 
-	 * try { Date objDate = new Date();
-	 * System.out.println("The default date format: " + objDate.toString());
-	 * 
-	 * String result = formatTheDate(objDate, "MMMM d, y");
-	 * System.out.println("using MMMM d, y format: " + result);
-	 * 
-	 * String msg = String.format("%10s | %-10s", result);
-	 * 
-	 * FileWriter fw = new FileWriter(f1, true); fw.write(msg + "\n"); fw.close();
-	 * 
-	 * } catch (IOException e) {
-	 * 
-	 * System.out.println(e.getMessage()); }
-	 * 
-	 * }
-	 */
+
+	private static void winner() { // if player has no more valid moves, the
+		// OTHER player wins displays and records the winner
+		String filename1 = "pastwinners.txt";
+		File f1 = new File(filename1);
+
+		try {
+			Date objDate = new Date();
+			System.out.println("The default date format: " + objDate.toString());
+
+			String result = formatTheDate(objDate, "MMMM d, y");
+			System.out.println("using MMMM d, y format: " + result);
+
+			String msg = String.format("%10s | %-10s", result);
+
+			FileWriter fw = new FileWriter(f1, true);
+			fw.write(msg + "\n");
+			fw.close();
+
+		} catch (IOException e) {
+
+			System.out.println(e.getMessage());
+		}
+
+	}
 
 	private static String formatTheDate(Date theDate, String strDateFormat) {
 		String result;
