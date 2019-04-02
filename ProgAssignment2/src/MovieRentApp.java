@@ -52,11 +52,9 @@ public class MovieRentApp {
 		System.out.println("Which movies would you like to rent? \ntype e to exit to menu");
 		String userInput = input.nextLine();
 		while (userInput != "e") {
-
+			// check if we have movie
+			// if we do, list price and record transaction to file
 		}
-
-		// Store in file of transactions file in earnings method
-		Earnings();
 		input.close();
 	}
 
