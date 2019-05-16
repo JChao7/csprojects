@@ -9,7 +9,7 @@
  */
 public class LuhnA1 {
 
-  public static boolean isValidLuhnNumber(String str) {
+  public static void isValidLuhnNumber(String str) {
     int totalNumber = 0;
     int multinumber1, multinumber2;
     int sum = 0;
@@ -32,7 +32,6 @@ public class LuhnA1 {
     }
 
     calculateCheckDigit(totalNumber, str);
-    return condition;
   }
 
   public static void main(String[] args) {
@@ -40,7 +39,7 @@ public class LuhnA1 {
     for(String arg : args) {
       try{
         str = arg;
-        if(isValidUsingCheckDigit(str) && isValidLuhnNumber(str)) {
+        if(isValidUsingCheckDigit(str)) {
           } 
         } catch (NumberFormatException e) {
           System.out.println(str + " not a positive integer of at least 2 digits");
@@ -51,11 +50,8 @@ public class LuhnA1 {
   public static boolean isValidUsingCheckDigit(String str) {
     boolean value = false;
     int num = Integer.parseInt(str);
-      if ((num > 0) && (str.length() > 2 )) {
-        value = true;
-      }
-      else {
-          value = false;
+      if ((num > 0) && (str.length() > 2)) {
+        return value = true;
       }
     return value;
   }
