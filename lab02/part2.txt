@@ -1,0 +1,23 @@
+Question 1
+no, because in the Q1Product class, the String name has been privatized
+
+Question 2
+no, beucase of encapsulation it hides the data from other classes. There is a cannot find symbol error
+
+Question 3
+Part 1 - steal the secret
+Part 2 - 
+
+
+2.you would protect it by chaning the public class to private
+
+Question 4
+
+Part 1 - No, it doesn't work because the call must be made in the first statement in the constructor
+
+Part 2 - No, because of incompatible data types.
+
+Part 3 = Yes, outputs
+Google	Pixel	3	rocks
+CPSC	1181	rocks
+I	am	good	at	this
