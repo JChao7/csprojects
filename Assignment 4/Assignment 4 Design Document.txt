@@ -1,0 +1,7 @@
+run runsystem where psvm is located then it gets passed through to input class where it reads 
+the user input and gets assigned to usercommandscannerfrom there it passes the assigned input 
+to commanparser class where it parses the input. From there, it passes the parsed info to 
+commandexecution class where it has has a if/else statements to see which 
+commands the user wants. Then it gos to the respective task that needs to be done. each of 
+these task will communicate back to commanparser to see what else needs to be inputed until 
+the user inputs exit
